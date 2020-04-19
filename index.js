@@ -12,6 +12,7 @@ const Message = require('./models/message');
 const session = require('express-session');
 const passport = require('passport');
 const LocalPassport = require('./config/passport-local-strategy');
+const googlePassport = require('./config/passport-google-oauth2-strategy');
 const mongoStore = require('connect-mongo')(session);
 
 

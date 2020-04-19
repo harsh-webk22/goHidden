@@ -22,7 +22,7 @@ body{
     height: auto;
     margin: 5rem;
     background-color:white;
-
+    position: relative;
 }
 
 .signin_form{
@@ -58,3 +58,63 @@ body{
     margin:1rem;
     min-width: 40px;
 } 
+
+
+#forget-password{
+    position: absolute;
+    right: 5%;
+    bottom: 18%;
+    color: grey;
+}
+
+
+
+/* horizontal line style */
+.hr-box{
+    position: relative;
+    margin-top: 1rem;
+}
+
+.hr-box p{
+    position : absolute;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+#hr1{
+    width: 45%;
+    top: .5rem;
+    position: absolute;
+}
+
+#hr2{
+    width:45%;
+    right: 0;
+    top: .5rem;
+    position: absolute;
+}
+
+
+/* sign in with gooogle */
+.social-authentication{
+    position: relative;
+}
+
+.social-sign-in{
+    display: flex;
+    width: 10rem;
+    margin-top :3rem;
+    padding: .5rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    position: absolute;
+}
+
+.facebook-sign-in{
+    width: 11rem;
+    right: 0;
+}

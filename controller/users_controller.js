@@ -1,6 +1,6 @@
 const Users= require('../models/users');
 const Message = require('../models/message')
-
+const forgetPasswordMailer = require('../mailer.js/forget-password');
 const passport = require('passport');
 
 //render sign in page
@@ -109,7 +109,6 @@ module.exports.home = async function(req,res){
 }
 
 
-
 // creating the account
 module.exports.create = async function(req , res){
 
@@ -140,19 +139,7 @@ module.exports.create = async function(req , res){
 
 //authentication using passport
 module.exports.createSession = function(req , res){
-    Users.findOne({email:req.body.email} , function(err , user){
-        if(err){
-            console.log('error in creating the sesssion');
-            return;
-        }
-
-        if(user){
-            return  res.redirect('home');
-        } else{
-            res.send('not found');
-        }
-        
-    });  
+            return  res.redirect('/home');
 }
 
 module.exports.destroySession = function(req , res){
@@ -199,15 +186,16 @@ module.exports.searchUser = async function(req , res){
 
             if(user){
                 // finding the message between user and profile searched
+
+                forgetPasswordMailer.forgetPassword(user)
                 let message;
                 let message2;
                 if(hidden== 'true'){
                     message = await Message.find({sentTo:user._id, sentBy: req.user, visible:user._id});
                     message2 = await Message.find({sentBy:user._id, sentTo: req.user , visible:user._id});
-                    console.log(message)
+                    
                 } else{
-                    console.log(user._id);
-
+                   
                     message = await Message.find({sentTo:user._id, sentBy: req.user.id, visible:req.user._id});
                     message2 = await Message.find({sentBy:user._id, sentTo: req.user.id , visible:req.user._id});
                     
@@ -224,8 +212,6 @@ module.exports.searchUser = async function(req , res){
                     // to get a value that is either negative, positive, or zero.
                     return new Date(a.createdAt) - new Date(b.createdAt);
                 });
-
-
 
                 // if user is found
             

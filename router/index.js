@@ -15,14 +15,6 @@ router.get('/signin' , userController.signIn);
 router.get('/signup' , userController.signUp);
 
 
-
-
-// router.get('/search-user' , function(req , res){
-//     console.log(req.query.name);
-
-// })
-
-
 router.post('/create-account' ,userController.create);
 
 router.post('/create-session' ,passport.authenticate(
@@ -31,10 +23,16 @@ router.post('/create-session' ,passport.authenticate(
 ) , userController.createSession );
 
 
-
 router.post('/search-user' , passport.checkAuthentication , userController.searchUserPost);
 
 router.get('/search-user' , passport.checkAuthentication , userController.searchUser);
+
+router.get('/users/auth/google' , passport.authenticate('google' , {scope:['profile','email']} ));
+
+router.get('/users/auth/google/callback' , passport.authenticate(
+    'google',
+    {failureRedirect:'/signin'} 
+    ) , userController.createSession)
 
 
 module.exports = router;
