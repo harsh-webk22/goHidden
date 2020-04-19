@@ -1,0 +1,60 @@
+/* this is universall and included in every stylign page */
+
+*{
+    margin :0;
+    padding :0;
+    font-family: sans-serif;
+    background-color: #E9EBEE;
+}
+
+body{
+    text-align: center;
+}
+
+
+/* sign up and sign in page styling is exactly same */
+
+
+.login-form{
+    display: inline-block;
+    padding:1rem;
+    width: auto;
+    height: auto;
+    margin: 5rem;
+    background-color:white;
+
+}
+
+.signin_form{
+    display: inline-block;
+    margin: auto;
+    text-align: left;
+}
+
+.signin_form input{
+    width: 30rem;
+    height: 2rem;
+    padding: 1rem;
+    margin : .5rem;
+    text-align: center;
+    border : 1px solid grey;
+    border-radius: 3px;
+}
+
+.signin_form input[type=submit]{
+    width: 7rem;
+    height: auto;
+    padding : .5rem;
+    box-sizing: content-box;
+    font-size: 1rem;
+    cursor: pointer;
+    border : 1px solid black;
+}
+
+
+.icon{
+    position: absolute;
+    /* padding: 10px; */
+    margin:1rem;
+    min-width: 40px;
+} 

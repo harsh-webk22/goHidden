@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <title>Search user</title>
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/search-style.css">
+        
+    </head>
+
+    <body>
+
+
+        <header>
+            <div class="header-logo">
+                <h1><a href="/">MessageX</a></h1>
+            </div>
+           
+
+            <div class="header-link">
+
+                <ul>
+                    <li style="text-transform: capitalize;">
+                        <%=self%>
+                    </li>   
+                    <li>
+                        <form action="/search-user" method="POST">
+                            <input type="text" name="name" id="user" placeholder="Search">
+                            <input type="hidden" name="hidden" value="false">
+                        </form>
+                    </li>
+                    <li><a href="/sign-out">Sign out</a></li>
+                    
+                </ul>
+            </div>     
+        </header>
+
+        
+        <main>
+
+            <div class="search-result">
+                <div class="profile-box">
+                    <% if(profile){ %>
+                    <div class="profile-detail">
+                        <div class="profile-image"></div>
+                        
+                        <% if(isHidden == 'true'){ %>
+                         
+                            <div class="profile-name">
+                                <h3> Mr.x</h3>
+                            </div>
+                        <% }else { %>
+                            <div class="profile-name">
+                                <h3><%= profile.email%></h3>
+                                <p><%= profile.name%></p>
+                            </div>
+                        <% } %>
+                       
+                    </div>
+        
+                    <div id="message-icon" onclick="displaySendMessagd()">
+                        <i class="far fa-paper-plane"></i>
+                    </div>
+    
+                    
+                    <% }else{ %>
+                        <h2>User not found</h2>
+                    <% } %>
+                </div>
+
+                <% if(profile){ %>
+                    <div id="send-message-box">
+                        
+                        
+                        <div class="older-message">
+                            <ul id="message-list">
+                                
+
+                                <!-- getting the list of all the messsage -->
+                                <% for(let i of message){ %>
+                                   <% if(i.sentTo ==  profile.id){%>
+                                    <li class="self-message">
+                                        <span><%= i.message %></span>
+                                    </li>
+
+                                    <!-- if message is sent by other person -->
+                                    <% } else{ %>
+                                        <li class="other-message">
+                                            <span><%= i.message %></span>
+                                        </li>
+                                    <% } %>
+                                 <% } %>
+                            </ul>
+                        </div>
+
+
+
+                        <!-- input boox to send message -->
+                        <div class="message-input">
+                            <form action="/user/message" id="message-form">
+                                <input type="text" name="message" id ="message" placeholder="Type here">
+                                <input type="hidden" name="profile" id="profile" value="<%= profile._id %>">
+                                <% if(isHidden == 'true'){%>
+                                    <input type="hidden" name="hidden" id="hidden" value="true">
+                                <% }else{ %>
+                                    <input type="hidden" name="hidden" id="hidden" value="false">
+                                <% } %>
+                                <button type="submit">Send</button>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </main>
+
+
+        <!-- to use for sockets -->
+        <input type="hidden" name="selfAccount" id="selfAccount" value="<%= locals.user._id %>">
+
+       <script>
+           function displaySendMessagd(){
+                document.getElementById('send-message-box').style.display = 'block';
+                let message =  document.getElementsByClassName('older-message')[0];
+                message.scrollTop = message.scrollHeight;
+
+           }
+       </script>
+        
+        <script src="https://kit.fontawesome.com/be3f777c45.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src="/js/chat_engine.js"></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <title>MessageX | Home</title>
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/profile-style.css">
+        
+    </head>
+
+    <body>
+
+
+        <header>
+            <div class="header-logo">
+                <h1>MessageX</h1>
+            </div>
+           
+
+            <div class="header-link">
+                <ul>
+                    <li style="text-transform: capitalize;">
+                        <%= name %>
+                    </li>
+                    <li>
+                        <form action="/search-user" method="POST">
+                            <input type="text" name="name" id="user" placeholder="Search">
+                            <input type="hidden" name="hidden" value="false">
+                        </form>
+                    </li>
+                    <li><a href="/sign-out">Sign out</a></li>
+                    
+                </ul>
+            </div>     
+        </header>
+
+        
+        <main>
+            <div class="message-box">
+                <h2>Messages</h2>
+    
+                <div class="message">
+                    <ul>
+                        <% if(message.length<=0){ %>
+                            <li><h3>No messages yet</h3></li>
+                            
+                        <% } %> 
+                         
+                        <% for(let i of message){ %>
+                           
+
+                                 <% if(i.visible == self){ %>
+                                    <a href="/search-user?name=<%=i.sentTo._id%>&hidden=false">
+                                        <% if(i.sentTo._id != self){ %>
+                                            <a href="/search-user?name=<%=i.sentTo._id%>&hidden=false">
+                                           <% }else{ %> 
+                                            <a href="/search-user?name=<%=i.sentBy._id%>&hidden=false">
+                                       <% } %> 
+
+
+                                        <li>
+                                            <div class="message-name">
+                                                <% if(i.sentTo._id != self){ %>
+                                                     <h3><%=i.sentTo.name %></h3>
+                                                    <% }else{ %> 
+                                                     <h3><%=i.sentBy.name %></h3>
+                                                <% } %> 
+                                                <p><%= i.message %></p>
+                                            </div>
+        
+                                            <div class="mesage-detaill">
+                                                <% if(i.sentTo._id != self){ %>
+                                                    <p>Sent</p>
+                                                <% }else{ %> 
+                                                    <p>Received</p>
+                                               <% } %> 
+                                            </div> 
+                                        </li>
+                                    </a>
+                                    
+
+                                 <% }else{ %> 
+
+                                    <!-- <a href="/search-user?name=<%=i.sentBy._id%>&hidden=true"> -->
+                                        <% if(i.sentTo._id != self){ %>
+                                            <a href="/search-user?name=<%=i.sentTo._id%>&hidden=true">
+                                           <% }else{ %> 
+                                            <a href="/search-user?name=<%=i.sentBy._id%>&hidden=true">
+                                       <% } %> 
+
+                                        <li>
+                                            <div class="message-name">
+                                                <h3>Mr. X</h3>
+                                                <p><%= i.message %></p>
+                                            </div>
+    
+                                            <div class="mesage-detaill">
+                                                <p>Received</p>
+                                            </div> 
+                                        </li>
+                                    </a>
+                                   
+                                 <% } %>                               
+                            
+                            <% } %>
+
+                        
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src="/js/chat_engine.js"></script>
+    </body>
+</html>
