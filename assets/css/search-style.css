@@ -104,6 +104,14 @@ body{
 
 
 
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #888;
+    border-radius: 2rem;
+}
 
 
 

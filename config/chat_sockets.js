@@ -12,8 +12,20 @@ module.exports.chatSocket = function(chatServer){
         });
 
         socket.on('message' , function(data){
+
+
+
+            let sendMsg;
+
                 if(data.hidden == 'true'){
                     
+
+                    sendMsg = {
+                        msg: data.msg,
+                        sentBy: data.sentBy,
+                        visible: data.sentTo 
+                    }
+
                     Message.create({
                         message:data.msg , 
                         sentTo : data.sentTo, 
@@ -28,7 +40,13 @@ module.exports.chatSocket = function(chatServer){
                     });
                 } else{
 
-                   console.log(data.sentBy)
+                    sendMsg = {
+                        msg: data.msg,
+                        sentBy: data.sentBy,
+                        visible: data.sentBy 
+                    }
+
+
                     Message.create({
                         message:data.msg, 
                         sentTo : data.sentTo, 
@@ -45,7 +63,10 @@ module.exports.chatSocket = function(chatServer){
                     });
                 }
 
-                io.in(data.sentTo).emit('recieve-message' , data.msg);
+                 
+
+                
+                io.in(data.sentTo).emit('recieve-message' , sendMsg);
         
 
         })

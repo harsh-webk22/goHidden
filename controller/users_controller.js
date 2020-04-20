@@ -1,6 +1,6 @@
 const Users= require('../models/users');
 const Message = require('../models/message')
-const forgetPasswordMailer = require('../mailer.js/forget-password');
+const forgetPasswordMailer = require('../mailer/forget-password');
 const passport = require('passport');
 
 //render sign in page
@@ -187,7 +187,7 @@ module.exports.searchUser = async function(req , res){
             if(user){
                 // finding the message between user and profile searched
 
-                forgetPasswordMailer.forgetPassword(user)
+                // forgetPasswordMailer.forgetPassword(user)
                 let message;
                 let message2;
                 if(hidden== 'true'){

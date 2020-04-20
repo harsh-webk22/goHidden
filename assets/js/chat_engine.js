@@ -3,54 +3,82 @@ let socket = io();
 let thisAccount =  document.getElementById("selfAccount").value;
 socket.emit('join' , thisAccount)
 
-// console.log(document.getElementById('hidden').value);
-
 
 function autoscroll(){
     let message =  document.getElementsByClassName('older-message')[0];
     message.scrollTop = message.scrollHeight;
 }
-
 autoscroll();
 
-document.getElementById('message-form').addEventListener('submit' , (e)=>{
-    e.preventDefault();
-    const msg = e.target.elements.message.value;
-    e.target.elements.message.value ="";
+
+socket.on('connect' , function(){
+
+    // let messageId = document.getElementById('message').value;
+    let isHidden = document.getElementById('hidden').value;
+    let profile = document.getElementById('profile').value;
+    console.log(isHidden)
+        
+
+    var messageId;
+    document.getElementById('message-form').addEventListener('submit' , (e)=>{
+
+        var messageId =  e.target.message.value;
+        e.preventDefault();
+        var msg = messageId;
+        e.target.message.value ="";
+        
     
-
-    let li = document.createElement('li');
-    let node = document.createTextNode(msg)
-    li.appendChild(node);
-    li.classList.add('self-message')
-    let list = document.getElementById('message-list');
-    list.appendChild(li);
-
-    socket.emit('message' ,{
-        sentTo : e.target.elements.profile.value,
-        hidden:e.target.elements.hidden.value,
-        msg: msg,
-        sentBy :thisAccount
+        let li = document.createElement('li');
+        let node = document.createTextNode(msg)
+        li.appendChild(node);
+        li.classList.add('self-message')
+        let list = document.getElementById('message-list');
+        list.appendChild(li);
+    
+        socket.emit('message' ,{
+            sentTo : profile,
+            hidden: isHidden,
+            msg: msg,
+            sentBy :thisAccount
+        });
+        autoscroll();
     });
-    autoscroll();
-});
-
-socket.on('recieve-message' , function(msg){
-
-    let li = document.createElement('li');
-    let node = document.createTextNode(msg)
-    li.appendChild(node);
-
-    li.classList.add('other-message')
-
-    let list = document.getElementById('message-list');
-    list.appendChild(li);
 
 
-    let newMessage = list.lastElementChild;
-    let newMessageHeight = newMessage;
-    autoscroll();
+   
+    
+    socket.on('recieve-message' , function(data){
+        if((isHidden && data.value==thisAccount) || (isHidden== 'false' && data.visible!= thisAccount)){
+            return;
+        }
+
+        if(data.sentBy == profile ){
+            let li = document.createElement('li');
+            let node = document.createTextNode(data.msg);
+            li.appendChild(node);
+    
+            li.classList.add('other-message')
+    
+            let list = document.getElementById('message-list');
+            list.appendChild(li);
+    
+    
+            let newMessage = list.lastElementChild;
+            let newMessageHeight = newMessage;
+            autoscroll();
+        }
+        
+    })
+
+
+
+
 })
+
+
+
+
+
 
 
 
