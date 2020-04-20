@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>MessageX | Home</title>
+        <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/home.css">
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/profile-style.css">
@@ -49,7 +50,7 @@
                            
 
                                  <% if(i.visible == self){ %>
-                                    <a href="/search-user?name=<%=i.sentTo._id%>&hidden=false">
+                                    
                                         <% if(i.sentTo._id != self){ %>
                                             <a href="/search-user?name=<%=i.sentTo._id%>&hidden=false">
                                            <% }else{ %> 
