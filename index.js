@@ -23,6 +23,7 @@ const chatSocket = require('./config/chat_sockets').chatSocket(chatServer);
 // chatServer.listen(5000);
 
 
+
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('./assets'));
@@ -49,7 +50,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
-
 app.use('/' , require('./router'));
 
 

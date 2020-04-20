@@ -222,16 +222,16 @@ module.exports.searchUser = async function(req , res){
                     message: msg
                 });
 
-            } else{
+            } 
 
                 // if user user not found
                 return res.render('search-user' , {
-                    self:req.user.name,
+                    self:"doesnotmatter",
                     isHidden: hidden , 
                     profile:false ,
                     message:[]
                 });
-            }
+            
 
 
         } catch (error) {

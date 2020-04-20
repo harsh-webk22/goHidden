@@ -15,13 +15,16 @@
                 <h1><a href="/">MessageX</a></h1>
             </div>
            
-
             <div class="header-link">
 
                 <ul>
-                    <li style="text-transform: capitalize;">
-                        <%=self%>
-                    </li>   
+
+                    <%if(profile){%>
+                        <li style="text-transform: capitalize;">
+                            <p><%= self %></p>
+                        </li>   
+
+                    <%}%>
                     <li>
                         <form action="/search-user" method="POST">
                             <input type="text" name="name" id="user" placeholder="Search">
