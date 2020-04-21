@@ -3,12 +3,11 @@ const ejs = require('ejs');
 const path= require('path');
 
 let transporter = nodemailer.createTransport({
-    service: 'gmail' ,
-    host: 'smtp.gmail.com',
+    host: 'smtpout.asia.secureserver.net',
     port: 587,
     secure : false,
     auth:{
-        user: "harshaggarwal060@gmail.com", 
+        user: "mail@message-x.com", 
         pass: 'Happy@!23'
     }
 });

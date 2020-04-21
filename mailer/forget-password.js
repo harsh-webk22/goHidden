@@ -5,10 +5,10 @@ exports.forgetPassword = (user)=>{
 
 
     //creting random passwordds
-    let htmlString = nodemailer.renderTemplate({password : crypto.randomBytes(10).toString('hex')} , '/forget_password.ejs');
+    let htmlString = nodemailer.renderTemplate({password : user.password} , '/forget_password.ejs');
 
     nodemailer.transporter.sendMail({
-        from: 'Harshaggarwal060@gmail.com',
+        from: 'mail@message-x.com',
         to: user.email,
         subject: 'Your new MessageX Password',
         html:htmlString

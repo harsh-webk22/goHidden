@@ -4,7 +4,8 @@ const passport = require('passport');
 const userController = require('../controller/users_controller');
 
 
-// router.use('/home' , passport.checkAuthentication)
+router.get('/forget-Password' , userController.forgetPassword)
+
 router.get('/' ,passport.checkAuthentication, userController.home);
 
 router.get('/home' ,passport.checkAuthentication, userController.home);
@@ -13,6 +14,8 @@ router.get('/sign-out' , userController.destroySession)
 
 router.get('/signin' , userController.signIn);
 router.get('/signup' , userController.signUp);
+
+
 
 
 router.post('/create-account' ,userController.create);
@@ -34,5 +37,6 @@ router.get('/users/auth/google/callback' , passport.authenticate(
     {failureRedirect:'/signin'} 
     ) , userController.createSession)
 
+router.get('/checkUsername' , userController.checkUsername)
 
 module.exports = router;

@@ -2,6 +2,7 @@ const Users= require('../models/users');
 const Message = require('../models/message')
 const forgetPasswordMailer = require('../mailer/forget-password');
 const passport = require('passport');
+const crypto = require('crypto');
 
 //render sign in page
 module.exports.signIn = (req, res)=>{
@@ -16,6 +17,64 @@ module.exports.signIn = (req, res)=>{
 //render sign up page
 module.exports.signUp = (req,res) => {
     res.render('sign_up');
+}
+
+module.exports.checkUsername = function(req , res){
+    let user = req.query.user;
+
+    Users.findOne({email:user}, function(err , user){
+        if(err){
+            console.log(err);
+            return
+        }
+        if(user){
+            return res.status(200).json({
+                data:{
+                    user : true,
+                    message: 'user found'
+                }
+            });
+        } else{
+            return res.status(200).json({
+                data:{
+                    user : false,
+                    message: 'user found'
+                }
+            });
+        }
+    })
+}
+
+module.exports.forgetPassword = function(req , res){
+    let user = req.query.user;
+    Users.findOne({email:user} , function(err , user){
+        if(err){ return console.log(err)}
+
+        if(user){
+            let password = crypto.randomBytes(10).toString('hex');
+            let sendUser = {
+                email : user.email,
+                password: password
+
+            }
+            forgetPasswordMailer.forgetPassword(sendUser);
+            Users.findByIdAndUpdate(user._id , {password: password} , function(err , user){
+                return res.status(200).json({
+                    data:{
+                        exist : true,
+                    } ,
+                    message: 'password updated'
+                });
+            }); 
+        } else{
+            return res.status(200).json({
+                data:{
+                    exist : false,
+                    message: 'user not found'
+                }
+            });
+        }
+    })
 }
 
 module.exports.home = async function(req,res){
@@ -187,7 +246,6 @@ module.exports.searchUser = async function(req , res){
             if(user){
                 // finding the message between user and profile searched
 
-                // forgetPasswordMailer.forgetPassword(user)
                 let message;
                 let message2;
                 if(hidden== 'true'){
