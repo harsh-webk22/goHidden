@@ -1,6 +1,9 @@
 const Users= require('../models/users');
 const Message = require('../models/message')
+const otpModel = require('../models/otp-authentication');
 const forgetPasswordMailer = require('../mailer/forget-password');
+const otpMailer = require('../mailer/OTPAuthentication')
+
 const passport = require('passport');
 const crypto = require('crypto');
 
@@ -75,6 +78,62 @@ module.exports.forgetPassword = function(req , res){
             });
         }
     })
+}
+
+
+module.exports.authenticateOTP = function(req , res){
+    let user = req.query.user;
+    let otp = parseInt(req.query.otp);
+    console.log(otp);
+
+    otpModel.findOne({email:user} , function(err , otpmodel){
+        if(err){return console.log(err)}
+
+        if(otpmodel){
+            console.log(otpmodel.otp);
+            
+            if(otpmodel.otp != otp){
+                return res.status(200).json({
+                    otp: false
+                });
+            } else{
+                return res.status(200).json({
+                    otp: true
+                });
+            }
+        } else{
+            return res.status(200).json({
+                otp: false
+            });
+        }
+    });
+}
+
+module.exports.createOTP =async function(req , res){
+    let user = req.query.user;
+    let  otp = Math.floor(Math.random()*1000000);
+    let email = await otpModel.findOne({email:user});
+
+    otpMailer.SendOtp({otp : otp , email:user});
+
+    if(email){
+        otpModel.findByIdAndUpdate(email._id , {otp: otp} , function(err , otpModel){
+            if(err){return console.log(err)}
+        });
+
+    } else{
+         otpModel.create({
+            email: user,
+            otp: otp
+        } , function(err , otp){
+            return console.log(otp);
+        });
+    }
+
+    return res.status(200).json({
+        otp:otp
+    })
+
 }
 
 module.exports.home = async function(req,res){

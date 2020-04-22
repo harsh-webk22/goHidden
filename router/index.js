@@ -3,10 +3,15 @@ const router = require('express').Router();
 const passport = require('passport');
 const userController = require('../controller/users_controller');
 
-
-router.get('/forget-Password' , userController.forgetPassword)
-
 router.get('/' ,passport.checkAuthentication, userController.home);
+
+
+router.get('/forget-Password' , userController.forgetPassword);
+router.get('/createOTP' , userController.createOTP);
+
+router.get('/authenticateOTP' ,userController.authenticateOTP)
+
+
 
 router.get('/home' ,passport.checkAuthentication, userController.home);
 
