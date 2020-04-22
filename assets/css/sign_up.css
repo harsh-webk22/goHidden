@@ -78,3 +78,109 @@ body{
 #email-check p{
     display: inline-block;
 }
+
+
+
+/* horizontal line style */
+.hr-box{
+    position: relative;
+    margin-top: 1rem;
+}
+
+.hr-box p{
+    position : absolute;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+#hr1{
+    width: 45%;
+    top: .5rem;
+    position: absolute;
+}
+
+#hr2{
+    width:45%;
+    right: 0;
+    top: .5rem;
+    position: absolute;
+}
+
+
+/* sign in with gooogle */
+.social-authentication{
+    position: relative;
+}
+
+.social-sign-in{
+    display: flex;
+    width: 10rem;
+    margin-top :3rem;
+    padding: .5rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    position: absolute;
+}
+
+.icon{
+    position: absolute;
+    /* padding: 10px; */
+    margin:1rem;
+    min-width: 40px;
+} 
+
+
+.menu{
+    display: none;
+}
+
+
+@media screen and (max-width:600px){
+    .menu{
+        display: block;
+    }
+
+    .signup-form-main{
+        margin: 5rem 0;
+        width:100%;
+        padding: 0;
+    }
+
+    .signup_form{
+        width: 90%;
+        position: relative;
+    } 
+
+     #sign_up_form input{
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #sign_up_form input[type=password]{
+        width: 46%;
+    }
+
+    .hr-box{
+        width: 100%;
+        /* overflow: hidden; */
+    }
+
+
+    #hr1{
+        width: 40%;
+        top: .5rem;
+        position: absolute;
+    }
+    
+    #hr2{
+        width:40%;
+        right: 0;
+        top: .5rem;
+        position: absolute;
+    }
+    
+}

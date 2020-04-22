@@ -34,8 +34,51 @@ main{
 }
 
 
-
-
 ::placeholder{
    font-size: 1rem;
+}
+
+.menu{
+    display: none;
+}
+
+
+@media screen and (max-width: 600px){
+
+    .header-logo span{
+        display: none;
+    }
+    .header-logo:last-child{
+        display: block;
+    }
+
+    .menu{
+        display: block;
+    }
+    body{
+        background-color: white;
+    }
+    
+    .message-box{
+        width:100%;
+        margin: 0;
+        padding: 0;
+    }
+    .message-box h2{
+        margin: 1rem;
+    }
+
+    main{
+        margin: 0;
+    }
+    #user{
+        width: 10rem;
+        padding: .5rem 1rem;
+        border-radius: 1rem;
+        background-color: white;
+        border: none;
+        /* transform: translateX(25%); */
+        font-size: .8rem;
+        
+    }
 }

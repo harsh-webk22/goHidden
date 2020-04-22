@@ -5,12 +5,13 @@
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/aboutus.css">
         <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         
         <header>
             <div class="header-logo">
-                <h1>Message-X</h1>
+                <h1><span> Message-</span>X</h1>
             </div>
         
 
@@ -22,8 +23,28 @@
                     
                 </ul>
             </div>     
+
+            <div class="menu">
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+            </div> 
         </header>        
 
+
+
+        <script>
+            document.getElementsByClassName('menu')[0].addEventListener('click' , function(){
+                let headerStyle = document.getElementsByClassName('header-link')[0].style.display;
+                if(headerStyle == 'block'){
+                    document.getElementsByClassName('header-link')[0].style.display ="none";
+                } else{
+                    document.getElementsByClassName('header-link')[0].style.display ="block";
+                }
+            });
+        </script>
+
+        
         <main>
             <div class="aboutus-box">
                 <h2>About Us</h2>

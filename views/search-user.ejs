@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="/css/home.css">
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/search-style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
     </head>
 
@@ -13,7 +14,7 @@
 
         <header>
             <div class="header-logo">
-                <h1><a href="/">Message-X</a></h1>
+                <h1><a href="/"><span>Message-</span>X</a></h1>
             </div>
            
             <div class="header-link">
@@ -35,7 +36,14 @@
                     <li><a href="/sign-out">Sign out</a></li>
                     
                 </ul>
-            </div>     
+            </div>   
+            
+            
+            <div class="menu">
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+            </div> 
         </header>
 
         
@@ -116,9 +124,8 @@
             </div>
         </main>
 
-
         <!-- to use for sockets -->
-        <input type="hidden" name="selfAccount" id="selfAccount" value="<%= locals.user._id %>">
+        <input type="hidden" name="selfAccount" id="selfAccount" value="<%= locals.user.id %>">
 
        <script>
            function displaySendMessagd(){

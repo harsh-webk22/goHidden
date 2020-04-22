@@ -4,23 +4,43 @@
         <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/sign_in.css">
         <link rel="stylesheet" href="/css/header.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale= 1">
     </head>
     <body>
         <header>
             <div class="header-logo">
-                <h1>Message-X</h1>
+                <h1><span>Message-</span>X</h1>
             </div>
            
-
+        
             <div class="header-link">
                 <ul>
                     <li><a href="/signup">Sign up</a></li>
                     <li><a href="/aboutus">About us</a></li>
-                    <li><a href="/feedback">Feedback</a></li>
-                    
+                    <li><a href="/feedback">Feedback</a></li>        
                 </ul>
-            </div>     
+            </div>
+
+            <div class="menu">
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+                <div class="menu-bar"></div>
+            </div>    
         </header>
+
+
+        <script>
+            document.getElementsByClassName('menu')[0].addEventListener('click' , function(){
+                let headerStyle = document.getElementsByClassName('header-link')[0].style.display;
+                if(headerStyle == 'block'){
+                    document.getElementsByClassName('header-link')[0].style.display ="none";
+                } else{
+                    document.getElementsByClassName('header-link')[0].style.display ="block";
+                }
+            });
+        </script>
+
 
 
         <div class="login-form">
@@ -83,7 +103,7 @@
            
 
 
-
+            
             <script src="https://kit.fontawesome.com/be3f777c45.js" crossorigin="anonymous"></script>
             <script src="/js/signin-authentication.js"> </script>
                 

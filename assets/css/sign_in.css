@@ -9,6 +9,7 @@
 
 body{
     text-align: center;
+
 }
 
 
@@ -35,6 +36,7 @@ body{
     background-color:white;
     position: relative;
 }
+
 
 .signin_form{
     display: inline-block;
@@ -130,3 +132,58 @@ body{
     right: 0;
 }
 
+
+.menu{
+    display: none;
+}
+
+
+@media screen and (max-width:600px){
+    .heder-logo h1 span{
+        display: none;
+    }
+    .menu{
+        display: block;
+    }
+
+    .login-form{
+        margin: 5rem 0;
+        width:100%;
+        padding: 0;
+    }
+
+    .signin_form{
+        width: 90%;
+        position: relative;
+    } 
+
+     .signin_form input{
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .hr-box{
+        width: 100%;
+        /* overflow: hidden; */
+    }
+
+
+    #hr1{
+        width: 40%;
+        top: .5rem;
+        position: absolute;
+    }
+    
+    #hr2{
+        width:40%;
+        right: 0;
+        top: .5rem;
+        position: absolute;
+    }
+    
+    #forget-password{
+        position: absolute;
+        right: 0;
+        bottom: 18%;
+    } 
+}

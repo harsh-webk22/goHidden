@@ -35,3 +35,67 @@ header{
     text-decoration: none;
     color:white;
 }
+
+
+@media screen and (max-width:600px){
+
+    .header-logo span{
+        display: none;
+    }
+    header{
+        padding:1.3rem;
+        height: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color:white;
+        background-color: black;
+    }
+    
+     .header-link {
+        display: NONE;
+    }
+
+    .menu{
+        padding: .7rem;
+        background-color: white;
+        border-radius: 45%;
+        cursor: pointer;
+        z-index: 2;
+
+    }
+
+    .menu-bar{
+        width:1.5rem;
+        height: 3px;
+        background-color: black;
+        margin-bottom: 3px;
+    }
+
+    
+     .header-link{
+        height: 100%;
+        background-color: rgba(26, 25, 25, 0.9);
+        width: 100%;
+        display: none;
+        position: fixed;
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+
+     .header-link ul li{
+        display: block;
+        margin: 0;
+        padding: 1rem;
+        color: white;
+        letter-spacing: 1px;
+        font-size: 1.5rem;
+        transition: .2s all;
+    }
+
+    .header-link ul li:hover{
+        transform: scale(1.2);
+    }
+
+}

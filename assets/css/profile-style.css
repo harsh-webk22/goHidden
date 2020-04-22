@@ -39,3 +39,10 @@ body{
     background-color: #eee;
     border-radius: 3px;
 }
+
+.menu{
+    display: none;
+}
+@media screen and (max-width:600px){
+   
+}
