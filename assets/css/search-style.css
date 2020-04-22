@@ -67,7 +67,8 @@ body{
 
 .older-message{
     width: 100%;
-    max-height: 20rem;
+    /* max-height: 20rem; */
+    max-height :  56vh;
     overflow: auto;
 }
 

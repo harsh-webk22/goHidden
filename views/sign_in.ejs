@@ -1,21 +1,22 @@
 <html>
     <head>
-        <title>MessageX | Sign In</title>
+        <title>Message-X | Sign In</title>
+        <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/sign_in.css">
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
         <header>
             <div class="header-logo">
-                <h1>MessageX</h1>
+                <h1>Message-X</h1>
             </div>
            
 
             <div class="header-link">
                 <ul>
                     <li><a href="/signup">Sign up</a></li>
-                    <li><a href="">About us</a></li>
-                    <li><a href="">Feedback</a></li>
+                    <li><a href="/aboutus">About us</a></li>
+                    <li><a href="/feedback">Feedback</a></li>
                     
                 </ul>
             </div>     
@@ -28,13 +29,20 @@
             <div class="signin_form">
                 <form action="/create-session" method="POST">
                     <i class="fas fa-users icon"></i>
-                    <input type="text" name="email" placeholder="Email" required><br>
+                    <input type="text" name="email" id="email" placeholder="Email" required><br>
+                    
+                    <div id="username-notification">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+
                     <i class="fas fa-key icon"></i>
                     <input type="password" name="password" placeholder="Password" required><br>
                     <input type="submit">
                 </form>
 
-                <span id="forget-password">Forget password?</span>
+                <a id ="link" href="/signup"><span id="forget-password">Forget password?</span></a>
+
+
 
                 <div class="hr-box">
                     <hr id="hr1">
@@ -59,7 +67,7 @@
                     
 
                     <!-- sign in with facebook -->
-                    <div class="facebook-sign-in social-sign-in">
+                    <!-- <div class="facebook-sign-in social-sign-in">
                         <div class="facebook-sign">
                             <i class="fab fa-facebook-f"></i>
                         </div>
@@ -67,7 +75,7 @@
                         <div class="facebook-text">
                             <p>Sign in with facebook</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -77,6 +85,8 @@
 
 
             <script src="https://kit.fontawesome.com/be3f777c45.js" crossorigin="anonymous"></script>
+            <script src="/js/signin-authentication.js"> </script>
+                
 
     </body>
   </html>

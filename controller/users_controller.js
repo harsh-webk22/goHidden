@@ -1,9 +1,23 @@
 const Users= require('../models/users');
 const Message = require('../models/message')
+const otpModel = require('../models/otp-authentication');
 const forgetPasswordMailer = require('../mailer/forget-password');
+const otpMailer = require('../mailer/OTPAuthentication')
+
 const passport = require('passport');
+const crypto = require('crypto');
 
 //render sign in page
+
+module.exports.aboutus = function(req ,res){
+    res.render('aboutus');
+}
+
+module.exports.feedback = function(req , res){
+    res.render('feedback')
+}
+
+
 module.exports.signIn = (req, res)=>{
     if(req.isAuthenticated()){
         res.redirect('back');
@@ -16,6 +30,120 @@ module.exports.signIn = (req, res)=>{
 //render sign up page
 module.exports.signUp = (req,res) => {
     res.render('sign_up');
+}
+
+module.exports.checkUsername = function(req , res){
+    let user = req.query.user;
+
+    Users.findOne({email:user}, function(err , user){
+        if(err){
+            console.log(err);
+            return
+        }
+        if(user){
+            return res.status(200).json({
+                data:{
+                    user : true,
+                    message: 'user found'
+                }
+            });
+        } else{
+            return res.status(200).json({
+                data:{
+                    user : false,
+                    message: 'user found'
+                }
+            });
+        }
+    })
+}
+
+module.exports.forgetPassword = function(req , res){
+    let user = req.query.user;
+    Users.findOne({email:user} , function(err , user){
+        if(err){ return console.log(err)}
+
+        if(user){
+            let password = crypto.randomBytes(10).toString('hex');
+            let sendUser = {
+                email : user.email,
+                password: password
+
+            }
+            forgetPasswordMailer.forgetPassword(sendUser);
+            Users.findByIdAndUpdate(user._id , {password: password} , function(err , user){
+                return res.status(200).json({
+                    data:{
+                        exist : true,
+                    } ,
+                    message: 'password updated'
+                });
+            }); 
+        } else{
+            return res.status(200).json({
+                data:{
+                    exist : false,
+                    message: 'user not found'
+                }
+            });
+        }
+    })
+}
+
+
+module.exports.authenticateOTP = function(req , res){
+    let user = req.query.user;
+    let otp = parseInt(req.query.otp);
+    console.log(otp);
+
+    otpModel.findOne({email:user} , function(err , otpmodel){
+        if(err){return console.log(err)}
+
+        if(otpmodel){
+            console.log(otpmodel.otp);
+            
+            if(otpmodel.otp != otp){
+                return res.status(200).json({
+                    otp: false
+                });
+            } else{
+                return res.status(200).json({
+                    otp: true
+                });
+            }
+        } else{
+            return res.status(200).json({
+                otp: false
+            });
+        }
+    });
+}
+
+module.exports.createOTP =async function(req , res){
+    let user = req.query.user;
+    let  otp = Math.floor(Math.random()*1000000);
+    let email = await otpModel.findOne({email:user});
+
+    otpMailer.SendOtp({otp : otp , email:user});
+
+    if(email){
+        otpModel.findByIdAndUpdate(email._id , {otp: otp} , function(err , otpModel){
+            if(err){return console.log(err)}
+        });
+
+    } else{
+         otpModel.create({
+            email: user,
+            otp: otp
+        } , function(err , otp){
+            return console.log(otp);
+        });
+    }
+
+    return res.status(200).json({
+        otp:otp
+    })
+
 }
 
 module.exports.home = async function(req,res){
@@ -187,7 +315,6 @@ module.exports.searchUser = async function(req , res){
             if(user){
                 // finding the message between user and profile searched
 
-                // forgetPasswordMailer.forgetPassword(user)
                 let message;
                 let message2;
                 if(hidden== 'true'){

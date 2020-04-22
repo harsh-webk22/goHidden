@@ -15,6 +15,17 @@ body{
 /* sign up and sign in page styling is exactly same */
 
 
+#username-notification{
+    display:none; 
+    /* position: relative; */
+    color: red; 
+    margin-left: 1rem;
+}
+
+#username-notification p{
+    display: inline-block;
+}
+
 .login-form{
     display: inline-block;
     padding:1rem;
@@ -118,3 +129,4 @@ body{
     width: 11rem;
     right: 0;
 }
+

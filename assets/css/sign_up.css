@@ -55,3 +55,26 @@ body{
     border : 1px solid black;
 }
 
+
+#password-check{
+    display:none; 
+    position: relative;
+    color: red; 
+    margin: 1rem;
+    margin-top: auto;
+}
+
+#password-check p{
+    display: inline-block;
+}
+
+#email-check{
+    display:none; 
+    position: relative;
+    color: red; 
+    margin-left: 1rem;
+}
+
+#email-check p{
+    display: inline-block;
+}

@@ -10,6 +10,7 @@ body{
     background-color: #F5F8FA;
 }
 
+
 .message-box{
     width:80%;
     margin: 1rem auto;
@@ -26,12 +27,15 @@ body{
 }
 
 .message li{
-    margin: 1rem;
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
     transition:.2s all;
 }
 
+
 .message li:hover{
     transform: scale(1.02);
+    background-color: #eee;
+    border-radius: 3px;
 }
