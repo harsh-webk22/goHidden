@@ -11,7 +11,9 @@ router.get('/createOTP' , userController.createOTP);
 
 router.get('/authenticateOTP' ,userController.authenticateOTP)
 
+router.get('/aboutus' , userController.aboutus)
 
+router.get('/feedback' , userController.feedback)
 
 router.get('/home' ,passport.checkAuthentication, userController.home);
 

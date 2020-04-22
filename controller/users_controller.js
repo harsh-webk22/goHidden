@@ -8,6 +8,16 @@ const passport = require('passport');
 const crypto = require('crypto');
 
 //render sign in page
+
+module.exports.aboutus = function(req ,res){
+    res.render('aboutus');
+}
+
+module.exports.feedback = function(req , res){
+    res.render('feedback')
+}
+
+
 module.exports.signIn = (req, res)=>{
     if(req.isAuthenticated()){
         res.redirect('back');

@@ -1,0 +1,19 @@
+body{
+    background-color: #E9EBEE;
+}
+
+.aboutus-box{
+    width: 80%;
+    background-color: white;
+    margin:1rem auto;
+    padding: 1rem;
+}
+
+.aboutus-box ul{
+    margin : 1rem;
+    list-style: none;
+}
+
+.aboutus-box li{
+    margin: 1rem;
+}
