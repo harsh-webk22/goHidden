@@ -14,25 +14,25 @@
 
         <header>
             <div class="header-logo">
-                <h1><a href="/"><span>Message-</span>X</a></h1>
+                <h2><a href="/"><span>Message-</span>X</a></h2>
             </div>
            
+            <div class="form">
+                <form action="/search-user" method="POST">
+                    <input type="text" name="name" id="user" placeholder="Search">
+                    <input type="hidden" name="hidden" value="false">
+                </form>
+            </div>
+
             <div class="header-link">
-
                 <ul>
-
-                    <%if(profile){%>
+                   
                         <li style="text-transform: capitalize;">
-                            <p><%= self %></p>
+                            <p><%=locals.self %></p>
                         </li>   
 
-                    <%}%>
-                    <li>
-                        <form action="/search-user" method="POST">
-                            <input type="text" name="name" id="user" placeholder="Search">
-                            <input type="hidden" name="hidden" value="false">
-                        </form>
-                    </li>
+                
+                    <li><a href="/home">Home</a></li>
                     <li><a href="/sign-out">Sign out</a></li>
                     
                 </ul>
@@ -51,49 +51,38 @@
 
             <div class="search-result">
                 <div class="profile-box">
-                    <% if(profile){ %>
+                    <% if(locals.profile){ %>
                     <div class="profile-detail">
                         <div class="profile-image"></div>
                         
                         <% if(isHidden == 'true'){ %>
-                         
                             <div class="profile-name">
                                 <h3> Mr.x</h3>
                             </div>
                         <% }else { %>
                             <div class="profile-name">
-                                <h3><%= profile.email%></h3>
+                                <h3><%= profile.username%></h3>
                                 <p><%= profile.name%></p>
                             </div>
                         <% } %>
-                       
                     </div>
-        
                     <div id="message-icon" onclick="displaySendMessagd()">
                         <i class="far fa-paper-plane"></i>
                     </div>
-    
-                    
                     <% }else{ %>
                         <h2>User not found</h2>
                     <% } %>
                 </div>
-
-                <% if(profile){ %>
+                <!-- <% if(locals.profile){ %> -->
                     <div id="send-message-box">
-                        
-                        
                         <div class="older-message">
                             <ul id="message-list">
-                                
-
                                 <!-- getting the list of all the messsage -->
                                 <% for(let i of message){ %>
                                    <% if(i.sentTo ==  profile.id){%>
                                     <li class="self-message">
                                         <span><%= i.message %></span>
                                     </li>
-
                                     <!-- if message is sent by other person -->
                                     <% } else{ %>
                                         <li class="other-message">
@@ -138,6 +127,7 @@
         
         <script src="https://kit.fontawesome.com/be3f777c45.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src = "/js/navigation-bar.js"></script>
         <script src="/js/chat_engine.js"></script>
 
 

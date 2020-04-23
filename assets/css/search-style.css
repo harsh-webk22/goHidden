@@ -84,8 +84,8 @@ body{
     clear: both;
     height: auto;
     padding: 1rem;
-    background-color: black;
-    color: white;
+    background-color: #F5F8FA;
+    color: black;
     border-radius: 1rem 1rem 1rem 0px;
     margin-bottom: 1rem;
 }
@@ -96,8 +96,8 @@ body{
     float:right ;
     height: auto;
     padding: 1rem;
-    background-color: F5F8FA;
-    color: black;
+    background-color: black;
+    color: white;
     margin-bottom: 1rem;
     border-radius: 1rem 1rem 0px 1rem;
 }
@@ -154,8 +154,6 @@ body{
         display: block;
     }
   
-    
-
     .search-result{
         width: 100%;
         margin:0;

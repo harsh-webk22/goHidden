@@ -20,7 +20,7 @@
            
             <div class="form">
                 <form action="/search-user" method="POST">
-                    <input type="text" name="name" id="user" placeholder="Search">
+                    <input type="text" name="name" id="user" placeholder="Search user">
                     <input type="hidden" name="hidden" value="false">
                 </form>
             </div>
@@ -47,40 +47,31 @@
 
         <!-- <div id="checkbox" style="width: 4rem; height: 4rem; background-color: green;"></div> -->
 
-        <script>
-            document.getElementsByClassName('menu')[0].addEventListener('click' , function(){
-                let headerStyle = document.getElementsByClassName('header-link')[0].style.display;
-                if(headerStyle == 'block'){
-                    document.getElementsByClassName('header-link')[0].style.display ="none";
-                } else{
-                    document.getElementsByClassName('header-link')[0].style.display ="block";
-                }
-                
-            });
+           
         </script>
+
         <main>
             <div class="message-box">
                 <h2>Messages</h2>
     
                 <div class="message">
+
                     <ul>
                         <% if(message.length<=0){ %>
                             <li><h3>No messages yet</h3></li>
-                            
                         <% } %> 
-                         
                         <% for(let i of message){ %>
-                           
-
+                            <form action="/search-user" method="POST">
                                  <% if(i.visible == self){ %>
-                                    
                                         <% if(i.sentTo._id != self){ %>
-                                            <a href="/search-user?name=<%=i.sentTo._id%>&hidden=false">
+                                            <input type="hidden" name="name" id="user" value="<%= i.sentTo.username %>">
+                                            <input type="hidden" name="hidden" value="false">
+                                            <!-- <a href="/search-user?name=<%=i.sentTo._id%>&hidden=false"> -->
                                            <% }else{ %> 
-                                            <a href="/search-user?name=<%=i.sentBy._id%>&hidden=false">
+                                            <input type="hidden" name="name" id="user" value="<%= i.sentBy.username %>">
+                                            <input type="hidden" name="hidden" value="false">
+                                            <!-- <a href="/search-user?name=<%=i.sentBy._id%>&hidden=false"> -->
                                        <% } %> 
-
-
                                         <li>
                                             <div class="message-name">
                                                 <% if(i.sentTo._id != self){ %>
@@ -99,42 +90,52 @@
                                                <% } %> 
                                             </div> 
                                         </li>
-                                    </a>
-                                    
-
+                                    <!-- </a> -->
+                                    </form>
+                                    <form action="/search-user" method="POST">
                                  <% }else{ %> 
-
-                                    <!-- <a href="/search-user?name=<%=i.sentBy._id%>&hidden=true"> -->
                                         <% if(i.sentTo._id != self){ %>
-                                            <a href="/search-user?name=<%=i.sentTo._id%>&hidden=true">
+                                            <input type="hidden" name="name" id="user" value="<%= i.sentTo.username %>">
+                                            <input type="hidden" name="hidden" value="true">
+                                            <!-- <a href="/search-user?name=<%=i.sentTo._id%>&hidden=true"> -->
                                            <% }else{ %> 
-                                            <a href="/search-user?name=<%=i.sentBy._id%>&hidden=true">
+                                            <input type="hidden" name="name" id="user" value="<%= i.sentBy.username %>">
+                                            <input type="hidden" name="hidden" value="true">
+                                            <!-- <a href="/search-user?name=<%=i.sentBy._id%>&hidden=true"> -->
                                        <% } %> 
-
                                         <li>
                                             <div class="message-name">
                                                 <h3>Mr. X</h3>
                                                 <p><%= i.message %></p>
                                             </div>
-    
                                             <div class="mesage-detaill">
                                                 <p>Received</p>
                                             </div> 
                                         </li>
-                                    </a>
-                                   
+                                    <!-- </a> -->
+                                </form> 
                                  <% } %>                               
-                            
                             <% } %>
-
+                        
+                        
                         
                     </ul>
                 </div>
             </div>
         </main>
 
+        <script>
+            let li = document.getElementsByTagName('li');
+            for(let i of li){
+                i.addEventListener('click' , function(){
+                    i.parentNode.submit();
+                })
+            }
+        </script>
         
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src = "/js/navigation-bar.js"></script>
+        <!-- <script src="/js/chat_engine.js"></script> -->
     </body>
 </html>

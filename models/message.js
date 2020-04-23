@@ -11,7 +11,6 @@ const messageSchema  = new mongoose.Schema({
         ref: 'Users',
         required: true
     },
-    
     sentBy :{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',

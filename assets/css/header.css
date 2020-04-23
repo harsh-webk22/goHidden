@@ -44,7 +44,7 @@ header{
     }
     header{
         padding:1.3rem;
-        height: 2rem;
+        height: 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -57,12 +57,12 @@ header{
     }
 
     .menu{
-        padding: .7rem;
+        padding: .5rem;
         background-color: white;
-        border-radius: 45%;
+        border-radius: .5rem;
         cursor: pointer;
         z-index: 2;
-
+        display: block;
     }
 
     .menu-bar{
@@ -92,6 +92,7 @@ header{
         letter-spacing: 1px;
         font-size: 1.5rem;
         transition: .2s all;
+        text-align: center;
     }
 
     .header-link ul li:hover{

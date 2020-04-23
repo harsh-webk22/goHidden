@@ -276,92 +276,123 @@ module.exports.destroySession = function(req , res){
 }
 
 
-module.exports.searchUserPost = async function(req , res){
-    let name = req.body.name;
-    try {
-        let user = await Users.findOne({email:name});
-
-        if(user){
-           return  res.redirect('/search-user?name='+user.id+'&hidden=false')
-            
-
-        } else{
-            // if user user not found
-            return res.render('search-user' , {
-                isHidden:false,
-                profile:false ,
-                message:[]
-            });
-        }    
-    } catch (error) {
-        console.log(error)   
+let search = async function(user , hidden , req){
+    // finding the message between user and profile searched
+    let message;
+    let message2;
+    if(hidden== 'true' || !hidden){
+        message = await Message.find({sentTo:user._id, sentBy: req.user, visible:user._id});
+        message2 = await Message.find({sentBy:user._id, sentTo: req.user , visible:user._id});
+        
+    } else{
+        message = await Message.find({sentTo:user._id, sentBy: req.user.id, visible:req.user._id});
+        message2 = await Message.find({sentBy:user._id, sentTo: req.user.id , visible:req.user._id});
+        
     }
     
+    // concating both the messages
+    let msg = message.concat(message2);
+
+
+    // sorting the messages based on timestamps
+    msg.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+
+    // if user is found
+
+    let response  =  {
+       self:user.name,
+       isHidden:hidden,
+       profile:user,
+       message: msg
+   }
+ 
+    return response;
 }
 
 
-module.exports.searchUser = async function(req , res){
-    let name = req.query.name;
-    let hidden = req.query.hidden;
-    
-    
-        try {
 
-            let user = await Users.findById(name);
-            if(user.id == req.user.id){
-               return res.redirect('/home');
-            }
+module.exports.searchUserPost = async function(req , res){
+    let name = req.body.name;
+    let hidden = req.body.hidden;
 
-            if(user){
-                // finding the message between user and profile searched
+    if(name == req.user.username || name == req.user.email){
+        return res.redirect('/');
+    }
 
-                let message;
-                let message2;
-                if(hidden== 'true'){
-                    message = await Message.find({sentTo:user._id, sentBy: req.user, visible:user._id});
-                    message2 = await Message.find({sentBy:user._id, sentTo: req.user , visible:user._id});
-                    
-                } else{
-                   
-                    message = await Message.find({sentTo:user._id, sentBy: req.user.id, visible:req.user._id});
-                    message2 = await Message.find({sentBy:user._id, sentTo: req.user.id , visible:req.user._id});
-                    
-                }
-                
-
-                // concating both the messages
-                let msg = message.concat(message2);
-
-
-                // sorting the messages based on timestamps
-                msg.sort(function(a,b){
-                    // Turn your strings into dates, and then subtract them
-                    // to get a value that is either negative, positive, or zero.
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                });
-
-                // if user is found
+    try {
+        let user = await Users.findOne({username:name});
+        if(user){
+            let response = search(user , hidden , req);
+            response.then(function(result){
+                return res.render('search-user' , result);
+            });
             
-                return res.render('search-user' , {
-                    self:req.user.name,
-                    isHidden:hidden,
-                    profile:user,
-                    message: msg
+       
+        } else{
+            // if user user not found
+            let user = await Users.findOne({email:name});
+            if(user){
+                let response = search(user , hidden , req);
+                response.then(function(result){
+                    return res.render('search-user' , result);
                 });
-
-            } 
-
-                // if user user not found
+            } else{
                 return res.render('search-user' , {
                     self:"doesnotmatter",
                     isHidden: hidden , 
                     profile:false ,
                     message:[]
                 });
+            }
+        }    
+
+    } catch (error) {
+        console.log(error)   
+    }
+}
+
+
+module.exports.searchParam =async function(req , res){
+    let name = req.params.id;
+    let hidden = 'false';
+
+    if(name == req.user.username || name == req.user.email){
+        return res.redirect('/');
+    }
+
+    try {
+        let user = await Users.findOne({username:name});
+        if(user){
+            let response = search(user , hidden , req);
+            response.then(function(result){
+                return res.render('search-user' , result);
+            });
             
+       
+        } else{
+            // if user user not found
+            let user = await Users.findOne({email:name});
+            if(user){
+                let response = search(user , hidden , req);
+                response.then(function(result){
+                    return res.render('search-user' , result);
+                });
+            } else{
+                return res.render('search-user' , {
+                    self:"doesnotmatter",
+                    isHidden: hidden , 
+                    profile:false ,
+                    message:[]
+                });
+            }
 
+        }    
+    } catch (error) {
+        console.log(error)   
+    }
 
-        } catch (error) {
-            return console.log(error)
-        }
 }
