@@ -2,8 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 const app = express();
-// const server = http.createServer(app);
-// const io = socketio(server);  
+
 const cookieParser = require('cookie-parser');
 const db = require('./config/mongoose');
 const Users = require('./models/users');
@@ -20,7 +19,7 @@ const mongoStore = require('connect-mongo')(session);
 
 const chatServer = http.createServer(app);
 const chatSocket = require('./config/chat_sockets').chatSocket(chatServer);
-// chatServer.listen(5000);
+
 
 
 

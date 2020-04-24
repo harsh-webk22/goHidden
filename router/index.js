@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 const passport = require('passport');
 const userController = require('../controller/users_controller');
@@ -47,7 +46,7 @@ router.get('/checkUsername' , userController.checkUsername)
 router.post('/search-user' , passport.checkAuthentication , userController.searchUserPost);
 
 
-router.get('/:id' , passport.checkAuthentication , userController.searchParam)
+router.get('/:name' , passport.checkAuthentication , userController.searchParam)
 
 
 module.exports = router;

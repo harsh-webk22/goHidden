@@ -7,7 +7,7 @@ exports.forgetPassword = (user)=>{
     let htmlString = nodemailer.renderTemplate({password : user.password} , '/forget_password.ejs');
 
     nodemailer.transporter.sendMail({
-        from: 'mail@message-x.com',
+        from: 'mail@message-x.com.com',
         to: user.email,
         subject: 'Your new MessageX Password',
         html:htmlString

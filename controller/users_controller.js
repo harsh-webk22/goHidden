@@ -17,7 +17,6 @@ module.exports.feedback = function(req , res){
     res.render('feedback')
 }
 
-
 module.exports.signIn = (req, res)=>{
     if(req.isAuthenticated()){
         res.redirect('back');
@@ -44,6 +43,7 @@ module.exports.checkUsername = function(req , res){
             return res.status(200).json({
                 data:{
                     user : true,
+                    password: user.password,
                     message: 'user found'
                 }
             });
@@ -146,12 +146,11 @@ module.exports.createOTP =async function(req , res){
 
 }
 
-module.exports.home = async function(req,res){
+module.exports.home = async function(req,res){ 
     let msg = [];
     try {
 
         // to show the name only once we need too sort message first
-
     
         // this sorting is for not visible contacts
          msg = await Message.find({sentBy : req.user.id , visible:{$ne : req.user.id}}).populate('sentBy').populate('sentTo');
@@ -249,8 +248,8 @@ module.exports.create = async function(req , res){
             if(!user){
                 // creating the users data
                         let newUser = await Users.create({
-                                email : req.body.email,
-                                username :  req.body.username,
+                                email : req.body.email.toLowerCase(),
+                                username :  req.body.username.toLowerCase(),
                                 password : req.body.password,
                                 name : req.body.name
                             });
@@ -267,7 +266,7 @@ module.exports.create = async function(req , res){
 
 //authentication using passport
 module.exports.createSession = function(req , res){
-            return  res.redirect('/home');
+        return  res.redirect('/home');
 }
 
 module.exports.destroySession = function(req , res){
@@ -314,9 +313,8 @@ let search = async function(user , hidden , req){
 }
 
 
-
 module.exports.searchUserPost = async function(req , res){
-    let name = req.body.name;
+    let name = req.body.name.toLowerCase();
     let hidden = req.body.hidden;
 
     if(name == req.user.username || name == req.user.email){
@@ -357,7 +355,7 @@ module.exports.searchUserPost = async function(req , res){
 
 
 module.exports.searchParam =async function(req , res){
-    let name = req.params.id;
+    let name = req.params.name.toLowerCase();
     let hidden = 'false';
 
     if(name == req.user.username || name == req.user.email){
