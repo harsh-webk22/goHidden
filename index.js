@@ -54,6 +54,6 @@ app.use('/' , require('./router'));
 
 
 
-chatServer.listen(4000 , function(err){
+chatServer.listen(4002 , function(err){
     console.log(err)
 });
